@@ -49,18 +49,19 @@ const SearchResult = () => {
 
     const { search } = window.location;
     const query = new URLSearchParams(search).get('s');
-    const [searchQuery] = useState(query || '');
-    const filteredPosts = filterPosts(data, searchQuery);
-    console.log(query, 'query from defaul')
-    console.log(filteredPosts, 'filter Posts')
+    const searchQuery = useState(query || '');
+    // const filteredPosts = filterPosts(data, searchQuery);
+    console.log(searchQuery, 'searchQuery from defaul')
+    // console.log(query, 'query from defaul')
+    // console.log(filteredPosts, 'filter Posts')
  
     return (
             <div className="SearchResult">
                 <Announcer
-                    message={`${filteredPosts.length} data`}
+                    message={`${searchQuery.length} data`}
                 />
                 <ul>
-                    {filteredPosts.map((attributes, id) => (
+                    {searchQuery.map((attributes, id) => (
                         <li key={id}>
                         <strong>{attributes.title}</strong>
                       </li>
