@@ -50,10 +50,10 @@ const SearchResult = () => {
     const { search } = window.location;
     const query = new URLSearchParams(search).get('s');
     const searchQuery = useState(query || '');
-    // const filteredPosts = filterPosts(data, searchQuery);
-    console.log(searchQuery, 'searchQuery from defaul')
-    // console.log(query, 'query from defaul')
-    // console.log(filteredPosts, 'filter Posts')
+    const filteredPosts = filterPosts(searchQuery);
+    console.log(query, 'query from default page')
+    console.log(searchQuery, 'searchQuery from query')
+    console.log(filteredPosts, 'filter Posts')
  
     return (
             <div className="SearchResult">
@@ -61,9 +61,9 @@ const SearchResult = () => {
                     message={`${searchQuery.length} data`}
                 />
                 <ul>
-                    {searchQuery.map((attributes, id) => (
+                    {filteredPosts.map((attributes, id) => (
                         <li key={id}>
-                        <strong>{attributes.title}</strong>
+                        <strong>{attributes[0]}</strong>
                       </li>
                     ))}
                     
