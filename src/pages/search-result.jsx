@@ -49,11 +49,11 @@ const SearchResult = () => {
 
     const { search } = window.location;
     const query = new URLSearchParams(search).get('s');
-    const searchQuery = useState(query || '');
-    const filteredPosts = filterPosts(searchQuery);
+    const [searchQuery, setSearchQuery] = useState(query || '');
+    const filteredPosts = filterPosts(data, searchQuery);
     console.log(query, 'query from default page')
     console.log(searchQuery, 'searchQuery from query')
-    console.log(filteredPosts, 'filter Posts')
+    console.log(filteredPosts, 'filtered Posts')
  
     return (
             <div className="SearchResult">
@@ -63,10 +63,9 @@ const SearchResult = () => {
                 <ul>
                     {filteredPosts.map((attributes, id) => (
                         <li key={id}>
-                        <strong>{attributes[0]}</strong>
+                        <strong>{attributes.title}</strong>
                       </li>
                     ))}
-                    
                 </ul>
             </div>
     );
