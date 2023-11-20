@@ -2,9 +2,8 @@ import { useNavigate } from "react-router-dom";
 
 const SearchBar = ({ searchQuery, setSearchQuery }) => {
     const navigate = useNavigate();
-    const onSubmit = (e) => {
+    const onSubmit = () => {
         navigate(`?s=${searchQuery}`);
-        e.preventDefault();
     };
 
     return (
