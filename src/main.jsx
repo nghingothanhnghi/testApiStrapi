@@ -11,6 +11,7 @@ import { Route } from "react-router"
 import App from './App.jsx';
 import DefaultPage from './pages/default.jsx';
 import CatePost from './post.jsx';
+import SearchResult from './pages/search-result.jsx';
 import './index.css'
 
 const router = createBrowserRouter(
@@ -22,6 +23,10 @@ const router = createBrowserRouter(
         element={<DefaultPage />}
       />
       <Route
+        path="/search-result"
+        element={<SearchResult />}
+      />      
+      <Route
         path="/:cateId"
         element={<CatePost />}
       />
@@ -30,7 +35,5 @@ const router = createBrowserRouter(
 );
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
     <RouterProvider router={router} />
-  </React.StrictMode>
 );

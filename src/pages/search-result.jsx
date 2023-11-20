@@ -1,0 +1,45 @@
+import { useState } from 'react';
+import Announcer from '../components/announcer';
+
+
+const posts = [
+    { id: '1', name: 'This first post is about React' },
+    { id: '2', name: 'This next post is about Preact' },
+    { id: '3', name: 'We have yet another React post!' },
+    { id: '4', name: 'This is the fourth and final post' },
+];
+
+const filterPosts = (posts, query) => {
+    if (!query) {
+        return posts;
+    }
+
+    return posts.filter((post) => {
+        const postName = post.name.toLowerCase();
+        return postName.includes(query);
+    });
+};
+
+const SearchResult = () => {
+    const { search } = window.location;
+    const query = new URLSearchParams(search).get('s');
+    const [searchQuery] = useState(query || '');
+    const filteredPosts = filterPosts(posts, searchQuery);
+    console.log(query)
+    console.log(filteredPosts)
+ 
+    return (
+            <div className="SearchResult">
+                <Announcer
+                    message={`${filteredPosts.length} posts`}
+                />
+                <ul>
+                    {filteredPosts.map((post) => (
+                        <li key={post.id}>{post.name}</li>
+                    ))}
+                </ul>
+            </div>
+    );
+};
+
+export default SearchResult;

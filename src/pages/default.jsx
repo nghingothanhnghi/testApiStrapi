@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Outlet, useNavigation } from "react-router-dom";
+import SearchBar from "../components/searchbar";
 import { getPosts } from "../api/http-common";
 import {Link} from "react-router-dom";
 
@@ -7,6 +8,12 @@ function DefaultPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [categories, setCategories] = useState([]);
+
+  const { search } = window.location;
+  const query = new URLSearchParams(search).get('s');
+  const [searchQuery, setSearchQuery] = useState(query || '');
+
+
   useEffect(() => {
     setLoading(true);
     const timer = setTimeout(() => {
@@ -28,6 +35,8 @@ function DefaultPage() {
   return (
     <>
       <div>
+      <SearchBar searchQuery={searchQuery}
+                    setSearchQuery={setSearchQuery} />
         {loading && <p>loading....</p>}
         {!loading && categories.length ? (
           <ul>
