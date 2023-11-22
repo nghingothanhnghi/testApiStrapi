@@ -9,14 +9,15 @@ import { Route } from "react-router"
 
 
 import App from './App.jsx';
+import ErrorPage from './pages/error.jsx';
 import DefaultPage from './pages/default.jsx';
-import CatePost from './post.jsx';
 import SearchResult from './pages/search-result.jsx';
+import CatePost from './pages/post.jsx';
 import './index.css'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route element={<App />}>
+    <Route element={<App />} errorElement={<ErrorPage />}>
       <Route
        index
         path="/"
@@ -25,11 +26,11 @@ const router = createBrowserRouter(
       <Route
         path="/search-result"
         element={<SearchResult />}
-      />      
+      />
       <Route
         path="/:cateId"
         element={<CatePost />}
-      />
+      />         
     </Route>
   )
 );

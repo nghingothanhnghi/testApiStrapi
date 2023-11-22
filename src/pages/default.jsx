@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Outlet, useNavigation } from "react-router-dom";
 import SearchBar from "../components/searchbar";
-import { getPosts } from "../api/http-common";
+import { getCategories } from "../api/http-common";
 import {Link} from "react-router-dom";
 
 function DefaultPage() {
@@ -17,10 +17,10 @@ function DefaultPage() {
   useEffect(() => {
     setLoading(true);
     const timer = setTimeout(() => {
-      getPosts()
+      getCategories()
         .then((json) => {
           setCategories(json.data);
-          console.log(json.data, "PostsList");
+          console.log(json.data, "Cate List");
         })
         .catch((err) => {
           console.log(err);
@@ -42,7 +42,7 @@ function DefaultPage() {
           <ul>
             {categories.map((post, i) => (
               <li key={i}>
-                {post.attributes.title}
+                {post.attributes.Name}
                 <Link
                 to={`/${post.id}`}
                 className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"

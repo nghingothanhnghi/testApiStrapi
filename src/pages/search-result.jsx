@@ -49,7 +49,7 @@ const SearchResult = () => {
 
     const { search } = window.location;
     const query = new URLSearchParams(search).get('s');
-    const [searchQuery, setSearchQuery] = useState(query || '');
+    const [searchQuery] = useState(query || '');
     const filteredPosts = filterPosts(data, searchQuery);
     console.log(query, 'query from default page')
     console.log(searchQuery, 'searchQuery from query')

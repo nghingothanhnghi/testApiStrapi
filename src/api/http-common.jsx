@@ -20,4 +20,9 @@ export const getCategories = async () => {
 export const getPosts = async () => {
     const response = await api.get('/posts')
     return response.data
-  }
+}
+
+export const getPostsByCategory = async () => {
+  const response = await api.get('/categories/${cateId}?populate=*')
+  return response.data
+}
