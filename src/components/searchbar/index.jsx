@@ -57,7 +57,7 @@ console.log(data, 'filter from axios')
 
     return (
         <form
-            action="http://127.0.0.1:5173/search-result"
+            action="/search-result"
             method="get"
             autoComplete="off"
             onSubmit={onSubmit}

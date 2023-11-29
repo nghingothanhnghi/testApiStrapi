@@ -57,7 +57,7 @@ const SearchResult = () => {
  
     return (
             <div className="SearchResult">
-                <Announcer
+                  <Announcer
                     message={`${searchQuery.length} data`}
                 />
                 <ul>
