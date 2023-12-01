@@ -6,6 +6,8 @@ import React, {
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
+
+import AgColHastagComp from "../components/ag-grid-component/ag-col-hastag-text.jsx";
 import AgColActionComp from "../components/ag-grid-component/ag-col-action.jsx";
 
 export default function UsersPage() {
@@ -16,7 +18,7 @@ export default function UsersPage() {
       {
         headerName: 'Component By Name',
         field: 'country',
-        cellRenderer: 'medalRenderer',
+        cellRenderer: 'agColActionComp',
       },
       {
         headerName: 'Component By Direct Reference',
@@ -33,7 +35,7 @@ export default function UsersPage() {
     }, []);
     const components = useMemo(() => {
       return {
-        medalRenderer: AgColActionComp,
+        agColActionComp: AgColActionComp,
       };
     }, []);
   
