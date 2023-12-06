@@ -12,7 +12,7 @@ const Login = () => {
   let navigate = useNavigate();
 
   const { isLoggedIn } = useSelector((state) => state.auth);
-  const { message } = useSelector((state) => state.message);
+  const { messageAlert } = useSelector((state) => state.message);
 
   const dispatch = useDispatch();
 
@@ -41,7 +41,6 @@ const Login = () => {
       .unwrap()
       .then(() => {
         navigate("/");
-        window.location.reload();
       })
       .catch(() => {});
   }
@@ -92,7 +91,7 @@ const Login = () => {
         </form>
       </div>
 
-      {message && (
+      {messageAlert && (
         <div className="form-group">
           <div className="alert alert-danger" role="alert">
             {message}
