@@ -1,9 +1,9 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:3000/api/auth/";
+const API_URL = "https://hexb6gqxh9.execute-api.us-east-2.amazonaws.com/develop/authenticate";
 
 const register = (username, email, password) => {
-  return axios.post(API_URL + "signup", {
+  return axios.post(API_URL + "/sign-up", {
     username,
     email,
     password,
@@ -12,14 +12,15 @@ const register = (username, email, password) => {
 
 const login = async (username, password) => {
   const response = await axios
-    .post(API_URL + "signin", {
+    .post(API_URL + "/login", {
       username,
       password,
     });
   if (response.data.username) {
     localStorage.setItem("user", JSON.stringify(response.data));
   }
-  return response.data;
+      // return response.data;
+      console.log(response.data, "Response Login")
 };
 
 const logout = async () => {

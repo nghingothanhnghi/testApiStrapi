@@ -3,8 +3,9 @@ import { Outlet, useNavigation } from "react-router-dom";
 import SearchBar from "../components/searchbar";
 import { getCategories } from "../api/http-common";
 import {Link} from "react-router-dom";
-
+import { useSelector } from "react-redux";
 function DefaultPage() {
+  const { user: currentUser } = useSelector((state) => state.auth);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [categories, setCategories] = useState([]);
@@ -35,6 +36,7 @@ function DefaultPage() {
   return (
     <>
       <div>
+      {currentUser.fullname}
       <SearchBar searchQuery={searchQuery}
                     setSearchQuery={setSearchQuery} />
         {loading && <p>loading....</p>}

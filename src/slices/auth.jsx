@@ -5,11 +5,11 @@ import AuthService from "../services/auth.service";
 
 const user = JSON.parse(localStorage.getItem("user"));
 
-export const register = createAsyncThunk(
-  "auth/register",
-  async ({ username, email, password }, thunkAPI) => {
+export const registerUser = createAsyncThunk(
+  "/register",
+  async ({ fullname, username, phone_number,  password }, thunkAPI) => {
     try {
-      const response = await AuthService.register(username, email, password);
+      const response = await AuthService.register(fullname, username, phone_number,  password);
       thunkAPI.dispatch(setMessage(response.data.message));
       return response.data;
     } catch (error) {
@@ -26,7 +26,7 @@ export const register = createAsyncThunk(
 );
 
 export const login = createAsyncThunk(
-  "auth/login",
+  "/login",
   async ({ username, password }, thunkAPI) => {
     try {
       const data = await AuthService.login(username, password);
@@ -44,7 +44,7 @@ export const login = createAsyncThunk(
   }
 );
 
-export const logout = createAsyncThunk("auth/logout", async () => {
+export const logout = createAsyncThunk("/logout", async () => {
   await AuthService.logout();
 });
 
@@ -55,11 +55,11 @@ const initialState = user
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  extraReducers: {
-    [register.fulfilled]: (state, action) => {
+  reducers: {
+    [registerUser.fulfilled]: (state, action) => {
       state.isLoggedIn = false;
     },
-    [register.rejected]: (state, action) => {
+    [registerUser.rejected]: (state, action) => {
       state.isLoggedIn = false;
     },
     [login.fulfilled]: (state, action) => {

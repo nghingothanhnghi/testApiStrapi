@@ -40,14 +40,14 @@ const Login = () => {
     return dispatch(login({ username, password }))
       .unwrap()
       .then(() => {
-        navigate("/profile");
+        navigate("/");
         window.location.reload();
       })
       .catch(() => {});
   }
 
   if (isLoggedIn) {
-    return <Navigate to="/profile" />;
+    return <Navigate to="/" />;
   }
 
   return (

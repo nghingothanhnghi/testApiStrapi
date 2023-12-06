@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
 import * as Yup from "yup";
+import { yupResolver } from '@hookform/resolvers/yup';
 
-import { register } from "../slices/auth";
+import { registerUser } from "../slices/auth";
 import { clearMessage } from "../slices/message";
 
 const Register = () => {
@@ -16,36 +18,49 @@ const Register = () => {
   }, [dispatch]);
 
   const initialValues = {
-    username: "",
+    fullname: "",
     email: "",
     password: "",
   };
 
-  // form validation rules
-  const validationSchema = Yup.object().shape({
-    username: Yup.string().required("Username is required"),
-    password: Yup.string().required("Password is required"),
-  });
-  const formOptions = { resolver: yupResolver(validationSchema) };
+     // form validation rules 
+     const validationSchema = Yup.object().shape({
+        fullname: Yup.string()
+            .required('Full Name is required'),
+        // email: Yup.string()
+        //     .required('Email is required'),
+        phone_number: Yup.string()
+            .required('Phone is required'),
+        username: Yup.string()
+            .required('Username is required'),
+        password: Yup.string()
+            .required('Password is required')
+            .min(6, 'Password must be at least 6 characters')
+            .max(12, "Password cannot exceed more than 12 characters"),
+        cpassword: Yup.string()
+            .required("Confirm Password is required")
+            .min(6, "Password length should be at least 6 characters")
+            .max(12, "Password cannot exceed more than 12 characters")
+            .oneOf([Yup.ref("password")], "Passwords do not match")
+    });
+    const formOptions = { resolver: yupResolver(validationSchema) };
 
-  // get functions to build form with useForm() hook
-  const { register, handleSubmit, formState } = useForm(formOptions);
-  const { errors, isSubmitting } = formState;
+    // get functions to build form with useForm() hook
+    const { register, handleSubmit, formState } = useForm(formOptions);
+    const { errors, isSubmitting } = formState;
 
-  const handleRegister = (formValue) => {
-    const { username, email, password } = formValue;
+    async function onSubmit({ fullname, username, phone_number, password, cpassword }) {
+        console.log(fullname, username, phone_number, password, cpassword)
+        try {
+            await dispatch(registerUser({ fullname, username, phone_number, password, cpassword })).unwrap();
 
-    setSuccessful(false);
-
-    dispatch(register({ username, email, password }))
-      .unwrap()
-      .then(() => {
-        setSuccessful(true);
-      })
-      .catch(() => {
-        setSuccessful(false);
-      });
-  };
+            // redirect to login page and display success alert
+            navigate('/login');
+            // dispatch(clearMessage.success({ message: 'Registration successful', showAfterRedirect: true }));
+        } catch (error) {
+            // dispatch(clearMessage.error(error));
+        }
+    }
 
   return (
     <div className="col-md-12 signup-form">
@@ -55,21 +70,21 @@ const Register = () => {
           alt="profile-img"
           className="profile-img-card"
         />
-        <form onSubmit={handleRegister}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           {!successful && (
             <div>
               <div className="form-group">
-                <label htmlFor="username">Username</label>
+                <label htmlFor="fullname">Full Name</label>
                 <input
-                  name="username"
+                  name="fullname"
                   type="text"
-                  {...register("username")}
+                  {...register("fullname")}
                   className={`form-control ${
-                    errors.username ? "is-invalid" : ""
+                    errors.fullname ? "is-invalid" : ""
                   }`}
                 />
                 <div className="invalid-feedback">
-                  {errors.password?.message}
+                  {errors.fullname?.message}
                 </div>
               </div>
 
@@ -100,8 +115,8 @@ const Register = () => {
               </div>
 
               <div className="form-group">
-                <button type="submit" className="btn btn-primary btn-block">
-                  Sign Up
+                <button disabled={isSubmitting} type="submit" className="btn btn-primary btn-block">
+                {isSubmitting && <span>loading...</span> } {!isSubmitting && <span>Create an account</span>}
                 </button>
               </div>
             </div>
