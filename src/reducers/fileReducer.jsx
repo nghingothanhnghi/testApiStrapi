@@ -1,3 +1,5 @@
+import { types } from "../types/fileTypes";
+
 export function fileReducer(state = {}, action) {
     const payload = action.payload;
     switch (action.type) {

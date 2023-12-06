@@ -1,12 +1,13 @@
-import { createStore } from 'redux';
-import fileReducer from '../reducers/fileReducer'
+import { configureStore } from '@reduxjs/toolkit'
+import authReducer from "../slices/auth";
+import messageReducer from "../slices/message";
 
-const initialState = {
-    files: [
-        { id: 1, filePath: ['Documents'] },
-        { id: 2, filePath: ['Documents', 'txt'] },
-        // more files ...
-    ]
-};
+const reducer = {
+  auth: authReducer,
+  message: messageReducer
+}
 
-export default createStore(fileReducer, initialState);
+export const store = configureStore({
+  reducer: reducer,
+  devTools: true,
+});

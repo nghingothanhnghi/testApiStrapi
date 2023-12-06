@@ -2,21 +2,20 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { bindActionCreators } from 'redux';
-import { AgGridReact } from "ag-grid-community/react";
+import { AgGridReact, ClientSideRowModelModule  } from "ag-grid-react";
+import "ag-grid-community/styles/ag-grid.css";
+import "ag-grid-community/styles/ag-theme-alpine.css";
 import { actions } from '../../actions/fileActions.jsx'
 
-import { ClientSideRowModelModule } from '@ag-grid-community/client-side-row-model';
-import { MenuModule } from '@ag-grid-enterprise/menu';
-import { RowGroupingModule } from '@ag-grid-enterprise/row-grouping';
-
-import "@ag-grid-community/styles/ag-grid.css";
-import "@ag-grid-community/styles/ag-theme-quartz.css";
+// import { ClientSideRowModelModule } from 'ag-grid-community/client-side-row-model';
+// import { MenuModule } from 'ag-grid-enterprise/menu';
+// import { RowGroupingModule } from 'ag-grid-enterprise/row-grouping';
 
 import FileCellRenderer from './FileCellRenderer.jsx';
 
-import { ModuleRegistry } from '@ag-grid-community/core';
+
 // Register the required feature modules with the Grid
-ModuleRegistry.registerModules([ClientSideRowModelModule, RowGroupingModule, MenuModule]);
+
 
 class FileBrowser extends Component {
   defaultColDef = { flex: 1 };
