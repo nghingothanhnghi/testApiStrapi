@@ -52,7 +52,7 @@ const Login = () => {
                 </div>
               );
             },
-            type: "danger"
+            type: "isError"
           }
         })
       })

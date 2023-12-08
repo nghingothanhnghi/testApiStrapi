@@ -12,8 +12,8 @@ export default function Toast({ toast }) {
     }
   }
   return (
-    <div className="toast">
-      <div className="toast-container">
+    <div className="relative">
+      <div className="absolute bottom-8 end-8">
         {toast.map((t) => {
           return (
             <div
