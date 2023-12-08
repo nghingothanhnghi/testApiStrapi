@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
-import { yupResolver } from '@hookform/resolvers/yup';
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useToastContext, ADD, REMOVE_ALL } from "../contexts/ToastContext";
 import { login } from "../slices/auth";
 import { clearMessage } from "../slices/message";
@@ -14,8 +14,8 @@ const Login = () => {
   const { isLoggedIn } = useSelector((state) => state.auth);
   const { messageAlert } = useSelector((state) => state.message);
 
-  console.log(isLoggedIn, "State Authorize")
-  console.log(messageAlert, "Response Message")
+  console.log(isLoggedIn, "State Authorize");
+  console.log(messageAlert, "Response Message");
 
   const dispatch = useDispatch();
 
@@ -50,14 +50,18 @@ const Login = () => {
             content: () => {
               return (
                 <div>
-                  <h4 className="text-sm font-semibold text-gray-900 dark:text-white">{res.user.message}!</h4>
-                  <p className="text-sm font-normal">Please try again, or contact customer service</p>
+                  <h4 className="text-sm font-semibold text-gray-900 dark:text-white">
+                    {res.user.message}!
+                  </h4>
+                  <p className="text-sm font-normal">
+                    Please try again, or contact customer service
+                  </p>
                 </div>
               );
             },
-            type: "isSuccess"
-          }
-        })
+            type: "isSuccess",
+          },
+        });
       })
       .catch((err) => {
         toastDispatch({
@@ -66,14 +70,18 @@ const Login = () => {
             content: () => {
               return (
                 <div>
-                  <h4 className="text-sm font-semibold text-gray-900 dark:text-white">{err.user.message}!</h4>
-                  <p className="text-sm font-normal">Please try again, or contact customer service</p>
+                  <h4 className="text-sm font-semibold text-gray-900 dark:text-white">
+                    {err.user.message}!
+                  </h4>
+                  <p className="text-sm font-normal">
+                    Please try again, or contact customer service
+                  </p>
                 </div>
               );
             },
-            type: "isError"
-          }
-        }) 
+            type: "isError",
+          },
+        });
       });
   }
 
@@ -90,28 +98,47 @@ const Login = () => {
           className="profile-img-card"
         />
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="form-group">
-            <label htmlFor="username">Username</label>
+          <div class="relative">
             <input
               name="username"
-              type="text"
               {...register("username")}
-              className={`form-control ${errors.username ? "is-invalid" : ""}`}
+              className={`block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer ${
+                errors.username ? "is-invalid" : ""
+              }`}
+              type="text"
+              placeholder=" "
             />
-            <div className="invalid-feedback">{errors.username?.message}</div>
+            <label
+              htmlFor="username"
+              className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 start-1 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto"
+            >
+              Username
+            </label>
+          </div>
+          <div className="text-red-600 dark:text-red-500">
+            {errors.username?.message}
           </div>
 
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
+          <div class="relative">
             <input
               name="password"
               type="password"
               {...register("password")}
-              className={`form-control ${errors.password ? "is-invalid" : ""}`}
+              className={`block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer ${
+                errors.password ? "is-invalid" : ""
+              }`}
+              placeholder=" "
             />
-            <div className="invalid-feedback">{errors.password?.message}</div>
+            <label
+              htmlFor="password"
+              className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 start-1 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto"
+            >
+              Password
+            </label>
           </div>
-
+          <div className="text-red-600 dark:text-red-500">
+            {errors.password?.message}
+          </div>
           <div className="form-group">
             <button disabled={isSubmitting} className="btn btn-primary">
               {isSubmitting && (
