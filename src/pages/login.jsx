@@ -14,6 +14,9 @@ const Login = () => {
   const { isLoggedIn } = useSelector((state) => state.auth);
   const { messageAlert } = useSelector((state) => state.message);
 
+  console.log(isLoggedIn, "State Authorize")
+  console.log(messageAlert, "Response Message")
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -39,7 +42,7 @@ const Login = () => {
   function onSubmit({ username, password }) {
     return dispatch(login({ username, password }))
       .unwrap()
-      .then(() => {
+      .then((res) => {
         navigate("/");
         toastDispatch({
           type: ADD,
@@ -47,8 +50,8 @@ const Login = () => {
             content: () => {
               return (
                 <div>
-                  <h4>Something Wrong</h4>
-                  <p>Something nasty happened!!</p>
+                  <h4 className="text-sm font-semibold text-gray-900 dark:text-white">{res.user.message}!</h4>
+                  <p className="text-sm font-normal">Please try again, or contact customer service</p>
                 </div>
               );
             },
@@ -56,15 +59,15 @@ const Login = () => {
           }
         })
       })
-      .catch(() => {
+      .catch((err) => {
         toastDispatch({
           type: ADD,
           payload: {
             content: () => {
               return (
                 <div>
-                  <h4>Error</h4>
-                  <p>Something nasty happened!!</p>
+                  <h4 className="text-sm font-semibold text-gray-900 dark:text-white">{err.user.message}!</h4>
+                  <p className="text-sm font-normal">Please try again, or contact customer service</p>
                 </div>
               );
             },
