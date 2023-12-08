@@ -4,13 +4,13 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
-
+import { useToastContext, ADD, REMOVE_ALL } from "../contexts/ToastContext";
 import { login } from "../slices/auth";
 import { clearMessage } from "../slices/message";
 
 const Login = () => {
   let navigate = useNavigate();
-
+  const { toastDispatch } = useToastContext();
   const { isLoggedIn } = useSelector((state) => state.auth);
   const { messageAlert } = useSelector((state) => state.message);
 
@@ -41,6 +41,12 @@ const Login = () => {
       .unwrap()
       .then(() => {
         navigate("/");
+        toastDispatch({
+          type: ADD,
+          payload: {
+            content: { sucess: "OK", message: "Hello World" }
+          }
+        })
       })
       .catch(() => {});
   }
