@@ -44,7 +44,15 @@ const Login = () => {
         toastDispatch({
           type: ADD,
           payload: {
-            content: { sucess: "OK", message: "Hello World" }
+            content: () => {
+              return (
+                <div>
+                  <h4>Error</h4>
+                  <p>Something nasty happened!!</p>
+                </div>
+              );
+            },
+            type: "danger"
           }
         })
       })
