@@ -47,6 +47,22 @@ const Login = () => {
             content: () => {
               return (
                 <div>
+                  <h4>Something Wrong</h4>
+                  <p>Something nasty happened!!</p>
+                </div>
+              );
+            },
+            type: "isSuccess"
+          }
+        })
+      })
+      .catch(() => {
+        toastDispatch({
+          type: ADD,
+          payload: {
+            content: () => {
+              return (
+                <div>
                   <h4>Error</h4>
                   <p>Something nasty happened!!</p>
                 </div>
@@ -54,9 +70,8 @@ const Login = () => {
             },
             type: "isError"
           }
-        })
-      })
-      .catch(() => {});
+        }) 
+      });
   }
 
   if (isLoggedIn) {
