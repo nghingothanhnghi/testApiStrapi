@@ -8,8 +8,6 @@ import { registerUser } from "../slices/auth";
 import { clearMessage } from "../slices/message";
 
 const Register = () => {
-  const [successful, setSuccessful] = useState(false);
-
   const { message } = useSelector((state) => state.message);
   const dispatch = useDispatch();
 
@@ -20,6 +18,7 @@ const Register = () => {
   const initialValues = {
     fullname: "",
     email: "",
+    phone_number:"",
     password: "",
   };
 
@@ -31,7 +30,7 @@ const Register = () => {
         //     .required('Email is required'),
         phone_number: Yup.string()
             .required('Phone is required'),
-        username: Yup.string()
+        email: Yup.string()
             .required('Username is required'),
         password: Yup.string()
             .required('Password is required')
@@ -49,13 +48,21 @@ const Register = () => {
     const { register, handleSubmit, formState } = useForm(formOptions);
     const { errors, isSubmitting } = formState;
 
-    async function onSubmit({ fullname, username, phone_number, password, cpassword }) {
-        console.log(fullname, username, phone_number, password, cpassword)
+    async function onSubmit({ fullname, email, phone_number, password, cpassword }) {
+        console.log(fullname, email, phone_number, password, cpassword)
         try {
-            await dispatch(registerUser({ fullname, username, phone_number, password, cpassword })).unwrap();
+            await dispatch(registerUser({ fullname, email, phone_number, password, cpassword })).unwrap()
+            .then((res) => {
+              console.log(res.data.message);
+              if (res.email = null) {
+                console.log(`Username ${email} exists!`);
+              } else {
+                console.log(`Username ${email} does not exist.`);
+                // redirect to login page and display success alert
+                navigate('/login');
+              }
+            }) 
 
-            // redirect to login page and display success alert
-            navigate('/login');
             // dispatch(clearMessage.success({ message: 'Registration successful', showAfterRedirect: true }));
         } catch (error) {
             // dispatch(clearMessage.error(error));
@@ -71,7 +78,7 @@ const Register = () => {
           className="profile-img-card"
         />
         <form onSubmit={handleSubmit(onSubmit)}>
-          {!successful && (
+      
             <div>
               <div className="form-group">
                 <label htmlFor="fullname">Full Name</label>
@@ -120,10 +127,10 @@ const Register = () => {
                 </button>
               </div>
             </div>
-          )}
+         
         </form>
       </div>
-
+{/* 
       {message && (
         <div className="form-group">
           <div
@@ -135,7 +142,7 @@ const Register = () => {
             {message}
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 };

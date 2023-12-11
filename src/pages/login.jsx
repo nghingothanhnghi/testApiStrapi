@@ -51,11 +51,8 @@ const Login = () => {
               return (
                 <div>
                   <h4 className="text-sm font-semibold text-gray-900 dark:text-white">
-                    {res.user.message}!
+                    {res.user.message}
                   </h4>
-                  <p className="text-sm font-normal">
-                    Please try again, or contact customer service
-                  </p>
                 </div>
               );
             },
@@ -98,7 +95,7 @@ const Login = () => {
           className="profile-img-card"
         />
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div class="relative">
+          <div className="relative">
             <input
               name="username"
               {...register("username")}
@@ -119,7 +116,7 @@ const Login = () => {
             {errors.username?.message}
           </div>
 
-          <div class="relative">
+          <div className="relative">
             <input
               name="password"
               type="password"
@@ -149,14 +146,6 @@ const Login = () => {
           </div>
         </form>
       </div>
-
-      {messageAlert && (
-        <div className="form-group">
-          <div className="alert alert-danger" role="alert">
-            {message}
-          </div>
-        </div>
-      )}
     </div>
   );
 };
