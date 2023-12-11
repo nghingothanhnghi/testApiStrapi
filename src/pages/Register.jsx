@@ -9,8 +9,9 @@ import { clearMessage } from "../slices/message";
 
 const Register = () => {
   const { toastDispatch } = useToastContext();
-  const { message } = useSelector((state) => state.message);
+  const { message } = useSelector(state => state.message);
   const dispatch = useDispatch();
+  console.log(message, "message state");
 
   useEffect(() => {
     dispatch(clearMessage());
