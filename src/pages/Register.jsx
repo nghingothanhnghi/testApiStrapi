@@ -3,11 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
-
+import { useToastContext, ADD, REMOVE_ALL } from "../contexts/ToastContext";
 import { registerUser } from "../slices/auth";
 import { clearMessage } from "../slices/message";
 
 const Register = () => {
+  const { toastDispatch } = useToastContext();
   const { message } = useSelector((state) => state.message);
   const dispatch = useDispatch();
 
@@ -56,6 +57,21 @@ const Register = () => {
               console.log(res.data.message);
               if (res.email = null) {
                 console.log(`Username ${email} exists!`);
+                toastDispatch({
+                  type: ADD,
+                  payload: {
+                    content: () => {
+                      return (
+                        <div>
+                          <h4 className="text-sm font-semibold text-gray-900 dark:text-white">
+                            {res.message}
+                          </h4>
+                        </div>
+                      );
+                    },
+                    type: "isSuccess",
+                  },
+                });
               } else {
                 console.log(`Username ${email} does not exist.`);
                 // redirect to login page and display success alert

@@ -2,10 +2,11 @@ import axios from "axios";
 
 const API_URL = "https://hfwupqrtna.execute-api.us-west-1.amazonaws.com/sandbox/authenticate";
 
-const register = (username, email, password) => {
+const register = (username, fullname,phone_number, password) => {
   return axios.post(API_URL + "/sign-up", {
+    fullname,
     username,
-    email,
+    phone_number,
     password,
   });
 };
