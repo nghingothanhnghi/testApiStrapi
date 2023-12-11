@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://hexb6gqxh9.execute-api.us-east-2.amazonaws.com/develop/authenticate";
+const API_URL = "https://hfwupqrtna.execute-api.us-west-1.amazonaws.com/sandbox/authenticate";
 
 const register = (username, email, password) => {
   return axios.post(API_URL + "/sign-up", {

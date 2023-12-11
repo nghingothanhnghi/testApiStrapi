@@ -106,6 +106,18 @@ const Register = () => {
                 <div className="invalid-feedback">{errors.email?.message}</div>
               </div>
 
+
+              <div className="form-group">
+                <label htmlFor="phone_number">Phone</label>
+                <input
+                  name="phone_number"
+                  type="text"
+                  {...register("phone_number")}
+                  className={`form-control ${errors.phone_number ? "is-invalid" : ""}`}
+                />
+                <div className="invalid-feedback">{errors.phone_number?.message}</div>
+              </div>
+
               <div className="form-group">
                 <label htmlFor="password">Password</label>
                 <input

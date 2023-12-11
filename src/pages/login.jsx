@@ -11,10 +11,10 @@ import { clearMessage } from "../slices/message";
 const Login = () => {
   let navigate = useNavigate();
   const { toastDispatch } = useToastContext();
-  const { isLoggedIn } = useSelector((state) => state.auth);
-  const { messageAlert } = useSelector((state) => state.message);
+  const { user } = useSelector((state) => state.auth);
+  const { messageAlert } = useSelector(state => state.message);
 
-  console.log(isLoggedIn, "State Authorize");
+  console.log(user, "State Authorize");
   console.log(messageAlert, "Response Message");
 
   const dispatch = useDispatch();
@@ -42,7 +42,8 @@ const Login = () => {
   function onSubmit({ username, password }) {
     return dispatch(login({ username, password }))
       .unwrap()
-      .then((res) => {
+      .then((response) => {
+        console.log(response.message, "response");
         navigate("/");
         toastDispatch({
           type: ADD,
@@ -51,7 +52,7 @@ const Login = () => {
               return (
                 <div>
                   <h4 className="text-sm font-semibold text-gray-900 dark:text-white">
-                    {res.user.message}
+                    {response.message}
                   </h4>
                 </div>
               );
@@ -68,11 +69,8 @@ const Login = () => {
               return (
                 <div>
                   <h4 className="text-sm font-semibold text-gray-900 dark:text-white">
-                    {err.user.message}!
+                    {err.message}
                   </h4>
-                  <p className="text-sm font-normal">
-                    Please try again, or contact customer service
-                  </p>
                 </div>
               );
             },
@@ -82,7 +80,7 @@ const Login = () => {
       });
   }
 
-  if (isLoggedIn) {
+  if (user) {
     return <Navigate to="/" />;
   }
 
