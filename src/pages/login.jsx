@@ -4,13 +4,13 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useToastContext, ADD, REMOVE_ALL } from "../contexts/ToastContext";
+import { useToast } from "../hooks/useToast";
 import { login } from "../slices/auth";
 import { clearMessage } from "../slices/message";
 
 const Login = () => {
   let navigate = useNavigate();
-  const { toastDispatch } = useToastContext();
+  const toast = useToast();
   const { user } = useSelector((state) => state.auth);
   const { messageAlert } = useSelector(state => state.message);
 
@@ -45,21 +45,7 @@ const Login = () => {
       .then((response) => {
         console.log(response.message, "response");
         navigate("/");
-        toastDispatch({
-          type: ADD,
-          payload: {
-            content: () => {
-              return (
-                <div>
-                  <h4 className="text-sm font-semibold text-gray-900 dark:text-white">
-                    {response.message}
-                  </h4>
-                </div>
-              );
-            },
-            type: "isSuccess",
-          },
-        });
+        toast.error(response.message)
       })
       .catch((err) => {
         toastDispatch({

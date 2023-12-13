@@ -1,47 +1,46 @@
 import React, { createContext, useReducer, useContext } from "react";
-import { createPortal } from "react-dom";
-import Toast from "../components/alert";
+import { toastReducer } from "../reducers/toastReducer";
+import ToastsContainer from "../components/alert/ToastsContainer";
 
 export const ToastContext = createContext();
 
-const initialState = [];
-
-export const ADD = "ADD";
-export const REMOVE = "REMOVE";
-export const REMOVE_ALL = "REMOVE_ALL";
-
-export const toastReducer = (state, action) => {
-  switch (action.type) {
-    case ADD:
-      return [
-        ...state,
-        {
-          id: +new Date(),
-          content: action.payload.content,
-          type: action.payload.type
-        }
-      ];
-    case REMOVE:
-      return state.filter(t => t.id !== action.payload.id);
-    case REMOVE_ALL:
-      return initialState;
-    default:
-      return state;
-  }
+const initialState = {
+  toasts: [],
 };
 
-export const ToastProvider = props => {
-  const [toast, toastDispatch] = useReducer(toastReducer, initialState);
-  const toastData = { toast, toastDispatch };
-  return (
-    <ToastContext.Provider value={toastData}>
-      {props.children}
+export const ToastContextProvider = ({ children }) => {
+  const [state, dispatch] = useReducer(toastReducer, initialState);
+  const addToast = (type, message) => {
+    const id = Math.floor(Math.random() * 10000000);
+    dispatch({ type: "ADD_TOAST", payload: { id, message, type } });
+  };
+  
+  const success = (message) => {
+    addToast("success", message);
+  };
+  
+  const warning = (message) => {
+    addToast("warning", message);
+  };
+  
+  const info = (message) => {
+    addToast("info", message);
+  };
+  
+  const error = (message) => {
+    addToast("error", message);
+  };
 
-      {createPortal(<Toast toast={toast} />, document.body)}
+  const remove = (id) => {
+    dispatch({ type: "DELETE_TOAST", payload: id });
+  };
+
+  const value = { success, warning, info, error, remove };
+  return (
+    <ToastContext.Provider value={value}>
+      <ToastsContainer toasts={state.toasts} position="bottom-right" />
+      {children}
     </ToastContext.Provider>
   );
 };
 
-export const useToastContext = () => {
-  return useContext(ToastContext);
-};

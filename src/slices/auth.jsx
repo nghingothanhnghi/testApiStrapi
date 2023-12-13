@@ -9,13 +9,13 @@ export const registerUser = createAsyncThunk(
   "/register",
   async ({ fullname, username, phone_number,  password }, thunkAPI) => {
     try {
-      const response = await AuthService.register(fullname, username, phone_number,  password);
-      return response.data;
+      const result = await AuthService.register(fullname, username, phone_number,  password);
+      return result;
     } catch (error) {
       const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
+        (error.result &&
+          error.result.data &&
+          error.result.data.message) ||
         error.message ||
         error.toString();
       thunkAPI.dispatch(setMessage(message));
@@ -28,13 +28,14 @@ export const login = createAsyncThunk(
   "/login",
   async ({ username, password }, thunkAPI) => {
     try {
-      const data = await AuthService.login(username, password);
-      return { user: data };
+      const result = await AuthService.login(username, password);
+      // return { user: result };
+      return result ;
     } catch (error) {
       const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
+        (error.result &&
+          error.result.data &&
+          error.result.data.message) ||
         error.message ||
         error.toString();
       thunkAPI.dispatch(setMessage(message));

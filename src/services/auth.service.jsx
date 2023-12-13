@@ -17,11 +17,12 @@ const login = async (username, password) => {
       username,
       password,
     });
-    if (response.data.accessToken) {
+    if (response.data.access_token) {
         localStorage.setItem("user", JSON.stringify(response.data));
     }
-    // return response.data;
-    console.log(response.data, "Response Login")
+    console.log(JSON.stringify(response), "Response Login")
+    return response.data;
+    
 };
 
 const logout = async () => {

@@ -10,7 +10,7 @@ import {
 import { Provider } from "react-redux";
 
 import { store } from "./store/store.jsx";
-import { ToastProvider } from "./contexts/ToastContext";
+import { ToastContextProvider } from "./contexts/ToastContext";
 import App from "./App.jsx";
 
 import "./index.css";
@@ -22,9 +22,9 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <ToastProvider>
+        <ToastContextProvider>
           <App />
-        </ToastProvider>
+        </ToastContextProvider>
       </BrowserRouter>
     </Provider>
   </React.StrictMode>
