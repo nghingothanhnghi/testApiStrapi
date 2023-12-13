@@ -43,26 +43,17 @@ const Login = () => {
     return dispatch(login({ username, password }))
       .unwrap()
       .then((response) => {
-        console.log(response.message, "response");
-        navigate("/");
-        toast.error(response.message)
+        if (response.error === true){
+          console.log(response.message, "response error");
+          toast.error(response.message)
+        }else{
+          console.log(response.message, "response success");
+          toast.success(response.message)
+          navigate("/");
+        }   
       })
       .catch((err) => {
-        toastDispatch({
-          type: ADD,
-          payload: {
-            content: () => {
-              return (
-                <div>
-                  <h4 className="text-sm font-semibold text-gray-900 dark:text-white">
-                    {err.message}
-                  </h4>
-                </div>
-              );
-            },
-            type: "isError",
-          },
-        });
+        toast.error(err.message)
       });
   }
 
