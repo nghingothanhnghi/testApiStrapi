@@ -39,7 +39,7 @@ function DefaultPage() {
   return (
     <>
       <div>
-      {currentUser.fullname}
+      {currentUser.username}
       <SearchBar searchQuery={searchQuery}
                     setSearchQuery={setSearchQuery} />
         {loading && <p>loading....</p>}

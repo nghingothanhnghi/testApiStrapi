@@ -46,7 +46,7 @@ const Login = () => {
         if (response.error === true){
           console.log(response.message, "response error");
           toast.error(response.message)
-        }else{
+        }else if (response.error === false){
           console.log(response.message, "response success");
           toast.success(response.message)
           navigate("/");
