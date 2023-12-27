@@ -12,7 +12,7 @@ const Login = () => {
   let navigate = useNavigate();
   const toast = useToast();
   const { user } = useSelector((state) => state.auth);
-  const { messageAlert } = useSelector(state => state.message);
+  const { messageAlert } = useSelector((state) => state.message);
 
   console.log(user, "State Authorize");
   console.log(messageAlert, "Response Message");
@@ -43,17 +43,17 @@ const Login = () => {
     return dispatch(login({ username, password }))
       .unwrap()
       .then((response) => {
-        if (response.error === true){
+        if (response.error === true) {
           console.log(response.message, "response error");
-          toast.error(response.message)
-        }else if (response.error === false){
+          toast.error(response.message);
+        } else if (response.error === false) {
           console.log(response.message, "response success");
-          toast.success(response.message)
+          toast.success(response.message);
           navigate("/");
-        }   
+        }
       })
       .catch((err) => {
-        toast.error(err.message)
+        toast.error(err.message);
       });
   }
 
@@ -62,7 +62,7 @@ const Login = () => {
   }
 
   return (
-    <div className="col-md-12 login-form">
+    <div className="max-w-sm mx-auto">
       <div className="card card-container">
         <img
           src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
@@ -70,7 +70,7 @@ const Login = () => {
           className="profile-img-card"
         />
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="relative">
+          <div className="relative z-0 w-full mb-5 group">
             <input
               name="username"
               {...register("username")}
@@ -91,7 +91,7 @@ const Login = () => {
             {errors.username?.message}
           </div>
 
-          <div className="relative">
+          <div className="relative z-0 w-full mb-5 group">
             <input
               name="password"
               type="password"
@@ -112,7 +112,7 @@ const Login = () => {
             {errors.password?.message}
           </div>
           <div className="form-group">
-            <button disabled={isSubmitting} className="btn btn-primary">
+            <button disabled={isSubmitting} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
               {isSubmitting && (
                 <span className="spinner-border spinner-border-sm me-1"></span>
               )}

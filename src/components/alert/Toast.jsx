@@ -2,24 +2,26 @@ import React, { useEffect, useRef, useState } from "react";
 import "./alert.module.css";
 import { useToast } from "../../hooks/useToast";
 
+import ToastIconInfo from "./icon";
+
 const toastTypes = {
   success: {
-    icon: "<IconCircleCheckFilled />",
+    icon: <ToastIconInfo />,
     iconClass: "success-icon",
     progressBarClass: "success",
   },
   warning: {
-    icon: "<IconAlertCircleFilled />",
+    icon: <ToastIconInfo />,
     iconClass: "warning-icon",
     progressBarClass: "warning",
   },
   info: {
-    icon: "<IconInfoCircleFilled />",
+    icon: <ToastIconInfo />,
     iconClass: "info-icon",
     progressBarClass: "info",
   },
   error: {
-    icon: "<IconCircleXFilled />",
+    icon: <ToastIconInfo />,
     iconClass: "error-icon",
     progressBarClass: "error",
   },
@@ -37,7 +39,7 @@ const Toast = ({ message, type, id }) => {
   useEffect(() => {
     timerID.current = setTimeout(() => {
       handleDismiss();
-    }, 14000);
+    }, 254000);
 
     return () => {
       clearTimeout(timerID.current);

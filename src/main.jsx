@@ -10,7 +10,10 @@ import {
 import { Provider } from "react-redux";
 
 import { store } from "./store/store.jsx";
+
 import { ToastContextProvider } from "./contexts/ToastContext";
+import  AuthProvider  from "./components/AuthProvider/AuthProvider";
+
 import App from "./App.jsx";
 
 import "./index.css";
@@ -20,13 +23,15 @@ const root = createRoot(container);
 
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <BrowserRouter>
-        <ToastContextProvider>
-          <App />
-        </ToastContextProvider>
-      </BrowserRouter>
-    </Provider>
+    <AuthProvider>
+      <Provider store={store}>
+        <BrowserRouter>
+          <ToastContextProvider>
+            <App />
+          </ToastContextProvider>
+        </BrowserRouter>
+      </Provider>
+    </AuthProvider>
   </React.StrictMode>
 );
 
